@@ -19,11 +19,11 @@ const pollSchema = new mongoose.Schema({
     trim: true,
   },
   options: [pollOptionSchema], // Using the pollOptionSchema as a sub-document
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Student", // Make sure you have a "Student" model
-    required: true,
-  },
+  // createdBy: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Student", // Make sure you have a "Student" model
+  //   required: true,
+  // },
 });
 
 module.exports = mongoose.model("Poll", pollSchema);

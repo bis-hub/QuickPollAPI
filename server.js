@@ -55,6 +55,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Mount routers
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/polls", auth);
 // app.use("/api/v1/batch", batch);
 // app.use("/api/v1/course", course);
 

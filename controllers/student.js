@@ -2,8 +2,6 @@ const asyncHandler = require("../middleware/async");
 const Student = require("../models/student");
 const Poll = require("../models/poll");
 
-// const Batch = require("../models/batch");
-// const Course = require("../models/course");
 const path = require("path");
 const fs = require("fs");
 
@@ -100,67 +98,67 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/students/search/:batchId
 // @access  Private
 
-exports.searchByBatch = asyncHandler(async (req, res, next) => {
-  // const students = await Student.find({ batch: req.params.batchId });
-  // if (!students) {
-  //   return res.status(404).send({ message: "No students found" });
-  // }
-  // res.status(200).json({
-  //   success: true,
-  //   count: students.length,
-  //   data: students,
-  // });
+// exports.searchByBatch = asyncHandler(async (req, res, next) => {
+//   // const students = await Student.find({ batch: req.params.batchId });
+//   // if (!students) {
+//   //   return res.status(404).send({ message: "No students found" });
+//   // }
+//   // res.status(200).json({
+//   //   success: true,
+//   //   count: students.length,
+//   //   data: students,
+//   // });
 
-  const batchId = req.params.batchId;
-  Student.find({ batch: batchId })
-    .populate("batch", "-__v")
-    .populate("course", "-__v")
-    .then((student) => {
-      res.status(201).json({
-        success: true,
-        message: "List of students by batch",
-        data: student,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: err,
-      });
-    });
-});
+//   const batchId = req.params.batchId;
+//   Student.find({ batch: batchId })
+//     .populate("batch", "-__v")
+//     .populate("course", "-__v")
+//     .then((student) => {
+//       res.status(201).json({
+//         success: true,
+//         message: "List of students by batch",
+//         data: student,
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(500).json({
+//         success: false,
+//         message: err,
+//       });
+//     });
+// });
 
-// @desc    Search student by course
-// @route   GET /api/v1/students/search/:courseId
-// @access  Private
+// // @desc    Search student by course
+// // @route   GET /api/v1/students/search/:courseId
+// // @access  Private
 
-exports.searchByCourse = asyncHandler(async (req, res, next) => {
-  const courseId = req.params.courseId;
+// exports.searchByCourse = asyncHandler(async (req, res, next) => {
+//   const courseId = req.params.courseId;
 
-  Student.find({
-    course: {
-      $elemMatch: {
-        $eq: { _id: courseId },
-      },
-    },
-  })
-    .select("-password -__v")
-    .populate("batch", "-__v")
-    .populate("course", "-__v")
-    .then((student) => {
-      res.status(201).json({
-        success: true,
-        message: "List of students by course",
-        data: student,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: err,
-      });
-    });
-});
+//   Student.find({
+//     course: {
+//       $elemMatch: {
+//         $eq: { _id: courseId },
+//       },
+//     },
+//   })
+//     .select("-password -__v")
+//     .populate("batch", "-__v")
+//     .populate("course", "-__v")
+//     .then((student) => {
+//       res.status(201).json({
+//         success: true,
+//         message: "List of students by course",
+//         data: student,
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(500).json({
+//         success: false,
+//         message: err,
+//       });
+//     });
+// });
 
 // @desc    Update student
 // @route   PUT /api/v1/students/:id
@@ -290,6 +288,7 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
 
     res.status(201).json({ message: "Poll created successfully" });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error creating poll" });
   }
 });
@@ -399,9 +398,3 @@ exports.deletePollById = asyncHandler(async (req, res, next) => {
     message: "Poll deleted successfully",
   });
 });
-
-// module.exports = {
-//   createPoll: exports.createPoll,
-//   recordVote: exports.recordVote,
-//   getAllPolls: exports.getAllPolls,
-// };

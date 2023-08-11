@@ -9,8 +9,8 @@ const {
   getStudent,
   register,
   login,
-  searchByBatch,
-  searchByCourse,
+  // searchByBatch,
+  // searchByCourse,
   updateStudent,
   deleteStudent,
   uploadImage,
@@ -27,14 +27,14 @@ router.post("/uploadImage", upload, uploadImage);
 router.post("/register", register);
 router.post("/login", login);
 router.get("/getAllStudents", protect, getStudents);
-router.get("/getStudentsByBatch/:batchId", protect, searchByBatch);
-router.get("/getStudentsByCourse/:courseId", protect, searchByCourse);
+// router.get("/getStudentsByBatch/:batchId", protect, searchByBatch);
+// router.get("/getStudentsByCourse/:courseId", protect, searchByCourse);
 router.put("/updateStudent/:id", protect, updateStudent);
 router.delete("/deleteStudent/:id", protect, deleteStudent);
 
 // Poll-related routes
-router.post("/createPoll", protect, createPoll);
-router.post("/recordVote", protect, recordVote);
+router.post("/createPoll", createPoll);
+router.post("/recordVote", recordVote);
 router.get("/getAllPolls", protect, getAllPolls);
 router.get("/getPollById/:id", protect, getPollById);
 router.get("/getAllMyPolls", protect, getAllMyPolls);
